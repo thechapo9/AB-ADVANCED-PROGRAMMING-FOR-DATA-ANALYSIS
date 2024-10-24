@@ -1,0 +1,520 @@
+---
+title: "Entregable 1"
+output: html_notebook
+---
+
+<br/>
+
+###### **ADVANCED PROGRAMMING FOR DATA ANALYSIS**
+
+###### Eugenio Lancha Gómez
+
+<br/>
+
+# MACROECONOMIA E.E.U.U & M2 LIQUIDITY
+
+###### 
+
+<br/>
+
+### **Introducción**
+
+<br/>
+
+Este estudio se centra en el análisis exhaustivo de la economía estadounidense a través de dos conjuntos de datos fundamentales que abarcan diferentes períodos históricos. La combinación de estos datasets nos permitirá obtener una visión holística de la evolución económica de Estados Unidos, con especial énfasis en la relación entre los indicadores macroeconómicos tradicionales y la política monetaria.
+
+El análisis se sustenta en la premisa de que la comprensión profunda de las interrelaciones entre variables macroeconómicas y monetarias es fundamental para entender los ciclos económicos, la efectividad de las políticas monetarias, y su impacto en el bienestar económico de la población. Este estudio cobra especial relevancia en el contexto actual, donde la política monetaria ha jugado un papel crucial en la estabilidad económica global.
+
+<br/>
+
+### **Descripción y Análisis de los Datasets**
+
+<br/>
+
+#### **1. Macroeconomía EEUU (USmacro_data)**
+
+<br/>
+
+Este conjunto de datos, obtenido a través de Kaggle (kaggle.com), proporciona una visión mensual detallada de la economía estadounidense desde noviembre de 1980. Con 499 registros y 8 variables clave, el dataset captura los principales indicadores macroeconómicos que definen el estado de la economía.
+
+<br/>
+
+##### Variables y su naturaleza:
+
+<br/>
+
+1.  **date** (Temporal)
+
+    -   Tipo: Variable cuantitativa discreta
+
+    -   Formato: YYYY-MM-DD
+
+    -   Periodicidad: Mensual
+
+    -   Rango: Desde noviembre 1980
+
+    <br/>
+
+2.  **CPI** (Índice de Precios al Consumidor)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Índice base 100
+
+    -   Relevancia: Indicador principal de inflación
+
+    -   Rango observado: 85.6 - 291.5
+
+    <br/>
+
+3.  **Mortgage_rate** (Tasa Hipotecaria)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Porcentaje (%)
+
+    -   Rango observado: 2.684% - 18.454%
+
+    -   Importancia: Indicador del costo del crédito hipotecario
+
+    <br/>
+
+4.  **Unemp_rate** (Tasa de Desempleo)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Porcentaje (%)
+
+    -   Rango observado: 3.500% - 14.700%
+
+    -   Significado: Proporción de la población activa sin empleo
+
+    <br/>
+
+5.  **NASDAQ** (Índice Bursátil)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Puntos
+
+    -   Rango observado: 167.4 - 15,814.9
+
+    -   Relevancia: Indicador del mercado de valores tecnológico
+
+    <br/>
+
+6.  **disposable_income** (Ingreso Disponible)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Dólares estadounidenses
+
+    -   Rango observado: 4,965 - 19,120
+
+    -   Significado: Ingreso después de impuestos disponible para consumo o ahorro
+
+        <br/>
+
+7.  **Personal_consumption_expenditure** (Gasto en Consumo Personal)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Dólares estadounidenses
+
+    -   Rango observado: 1,827 - 16,955
+
+    -   Importancia: Indicador del consumo privado
+
+    <br/>
+
+8.  **personal_savings** (Ahorros Personales)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Porcentaje (%)
+
+    -   Rango observado: 2.100% - 33.800%
+
+    -   Significado: Proporción del ingreso destinado al ahorro
+
+<br/>
+
+```{r}
+USmacro_data <- read.csv("US_macroeconomics.csv")
+m2liquidity <- read.csv("m2_liquidity_data.csv")
+head(USmacro_data)
+```
+
+```{r}
+tail(USmacro_data)
+```
+
+<br/>
+
+#### **2. M2 Liquidity (m2liquidity)**
+
+<br/>
+
+Este dataset, obtenido directamente de la Reserva Federal de St. Louis (FRED), proporciona información crucial sobre la oferta monetaria en Estados Unidos desde 1959. La medida M2 es particularmente importante para entender la política monetaria y sus efectos en la economía real.
+
+##### Variables y su naturaleza:
+
+<br/>
+
+1.  **date** (Temporal)
+
+    -   Tipo: Variable cuantitativa discreta
+
+    -   Formato: YYYY-MM-DD
+
+    -   Periodicidad: Mensual
+
+    -   Rango: Desde enero 1959
+
+    <br/>
+
+2.  **value** (M2 Money Stock)
+
+    -   Tipo: Variable cuantitativa continua
+
+    -   Unidad de medida: Miles de millones de dólares estadounidenses
+
+    -   Rango observado: 286.6 - 21,722.3
+
+    -   Componentes detallados del M2:
+
+        <br/>
+
+        a)  **Efectivo en circulación**
+
+        -   Billetes y monedas en manos del público
+
+        -   Dinero físico utilizado en transacciones diarias
+
+        -   Componente más líquido del M2
+
+            <br/>
+
+        b)  **Depósitos a la vista**
+
+        -   Cuentas corrientes en bancos comerciales
+
+        -   Fondos disponibles para retiro inmediato
+
+        -   Utilizados principalmente para transacciones
+
+        -   No generan intereses o generan intereses muy bajos
+
+            <br/>
+
+        c)  **Cuentas de ahorro**
+
+        -   Depósitos que generan intereses
+
+        -   Acceso relativamente fácil pero no inmediato
+
+        -   Incluye cuentas de ahorro regulares y cuentas del mercado monetario
+
+        -   Suelen tener límites en el número de retiros mensuales
+
+            <br/>
+
+        d)  **Depósitos a plazo menores a \$100,000**
+
+        -   Certificados de depósito (CDs) pequeños
+
+        -   Plazo fijo con penalización por retiro anticipado
+
+        -   Mayores tasas de interés que las cuentas de ahorro
+
+        -   Importantes para el ahorro a mediano plazo
+
+            <br/>
+
+        e)  **Fondos del mercado monetario minoristas**
+
+        -   Inversiones en instrumentos de deuda a corto plazo
+
+        -   Alta liquidez y bajo riesgo
+
+        -   Rendimientos generalmente superiores a cuentas de ahorro tradicionales
+
+        -   Utilizados como alternativa a las cuentas bancarias tradicionales
+
+<br/>
+
+```{r}
+head(m2liquidity)
+```
+
+```{r}
+tail(m2liquidity)
+```
+
+<br/>
+
+Como se puede observar las primeras dos columnas de los datos de M2 no sirven de nada ya que solo muestran de forma repetida el dia en el que se descargaron los datos, asi que las eliminamos.
+
+<br/>
+
+```{r}
+# Eliminar las dos primeras columnas de dataset1
+m2liquidity <- m2liquidity[, -c(1, 2)]
+head(m2liquidity)
+```
+
+<br/>
+
+A continuación vamos a extraer un poco más de información a cerca de ambos dataset usando la función summary(), y el any(is.na()), para ver información de los datos de cada columna, y conocer los "na" en cada una de ellas, respectivamente.
+
+<br/>
+
+```{r}
+# Verificación de valores faltantes
+summary(USmacro_data)
+any(is.na(USmacro_data))
+```
+
+```{r}
+# Verificación de valores faltantes
+summary(m2liquidity)
+any(is.na(m2liquidity))
+```
+
+<br/>
+
+Como podemos observar en ningún dataset encontramos ningún tipo de dato "na", lo que parece ser una muy buena señal.
+
+Ahora, vamos a ver la estructura de los datos de cada dataset por si tuvieramos que realizar algun cambio.
+
+<br/>
+
+```{r}
+str(USmacro_data)
+str(m2liquidity)
+```
+
+<br/>
+
+Parece que los datos de la columna "date" son son caracteres, "chr", por lo que vamos a cambiarlos por datos tipo "Date".
+
+<br/>
+
+```{r}
+USmacro_data$date <- as.Date(USmacro_data$date)
+m2liquidity$date <- as.Date(m2liquidity$date)
+
+str(USmacro_data)
+str(m2liquidity)
+```
+
+<br/>
+
+Lo último que nos queda antes de comenzar a trabajar es juntar ambos datasets. Como ya hemos comentado, no tienen la misma longitud, por lo que utilizaremos la función "merge" para juntar ambos basandonos en las fechas comunes.
+
+<br/>
+
+```{r}
+merged_data <- merge(USmacro_data, m2liquidity, by = "date")
+head(merged_data)
+```
+
+```{r}
+str(merged_data)
+```
+
+<br/>
+
+#### **Análisis de Correlaciones y Potencial Analítico**
+
+<br/>
+
+**Introducción al Análisis de Correlaciones**
+
+<br/>
+
+Tras haber realizado una exhaustiva recopilación y procesamiento de datos macroeconómicos estadounidenses, nos encontramos en una posición privilegiada para profundizar en el análisis de las relaciones entre las distintas variables estudiadas. La comprensión de estas interrelaciones es fundamental por varios motivos:
+
+1.  Permite identificar patrones y dependencias entre variables macroeconómicas clave
+2.  Facilita la comprensión de los mecanismos de transmisión de la política monetaria
+3.  Ayuda a prever posibles impactos de cambios en determinadas variables sobre otras
+4.  Proporciona una base sólida para la toma de decisiones en política económica
+
+En esta sección final, nos centraremos en el análisis de las correlaciones entre las variables estudiadas, utilizando técnicas estadísticas que nos permitirán cuantificar y visualizar estas relaciones. Este análisis no solo nos ayudará a entender mejor la estructura de la economía estadounidense, sino que también nos permitirá identificar áreas potenciales para investigación futura.
+
+<br/>
+
+**Metodología y Visualización**
+
+<br/>
+
+Para realizar este análisis, utilizaremos la matriz de correlación como herramienta principal. Esta matriz nos permite visualizar de manera clara y concisa las relaciones entre pares de variables, donde:
+
+-   Los valores cercanos a 1 indican una fuerte correlación positiva
+-   Los valores cercanos a -1 indican una fuerte correlación negativa
+-   Los valores cercanos a 0 indican ausencia de correlación lineal
+
+Procedamos a visualizar estas relaciones:
+
+<br/>
+
+```{r}
+# Cargar librería
+library(corrplot)
+
+# Seleccionar solo las columnas numéricas para la correlación
+datos_numericos <- merged_data[, c("CPI", "Mortgage_rate", "Unemp_rate", "NASDAQ", 
+                                 "disposable_income", "Personal_consumption_expenditure",
+                                 "personal_savings", "value")]
+
+# Renombrar columnas para mejor visualización
+colnames(datos_numericos) <- c("CPI", "Tasa Hipot.", "Desempleo", "NASDAQ", 
+                             "Ingreso Disp.", "Consumo", "Ahorro", "M2")
+
+# Calcular matriz de correlación
+matriz_correlacion <- cor(datos_numericos)
+
+# Crear el gráfico
+corrplot(matriz_correlacion,
+         method = "color",      # Usar colores para visualizar
+         addCoef.col = "black", # Mostrar coeficientes en negro
+         number.cex = 0.7,      # Tamaño de los números
+         tl.col = "black",      # Color del texto de etiquetas
+         tl.srt = 45,          # Rotar texto 45 grados
+         diag = FALSE) 
+```
+
+<br/>
+
+**Análisis de las Correlaciones Observadas**
+
+La matriz de correlación revela patrones significativos en las relaciones entre variables macroeconómicas:
+
+<br/>
+
+**1. Relaciones con la Oferta Monetaria (M2)**
+
+\- Se observa una fuerte correlación positiva con el CPI, lo que respalda la teoría monetarista sobre la relación entre masa monetaria e inflación
+
+\- La correlación con el NASDAQ sugiere una influencia significativa de la política monetaria en los mercados financieros
+
+<br/>
+
+```{r}
+# Cargar librería
+library(ggplot2)
+
+# 1. Relaciones con la Oferta Monetaria (M2)
+# Gráfico de M2
+ggplot(merged_data, aes(x = date, y = value)) +
+  geom_line(color = "blue") +
+  labs(title = "Evolución de M2 a lo largo del tiempo",
+       y = "M2 (Miles de millones USD)",
+       x = "Año") +
+  theme_minimal()
+
+# Gráfico de CPI
+ggplot(merged_data, aes(x = date, y = CPI)) +
+  geom_line(color = "red") +
+  labs(title = "Evolución del CPI a lo largo del tiempo",
+       y = "CPI",
+       x = "Año") +
+  theme_minimal()
+
+
+# Gráfico del NASDAQ
+ggplot(merged_data, aes(x = date, y = NASDAQ)) +
+  geom_line(color = "green") +
+  labs(title = "Evolución del NASDAQ a lo largo del tiempo",
+       y = "NASDAQ",
+       x = "Año") +
+  theme_minimal()
+```
+
+**2. Mercado Laboral y Consumo**
+
+\- La tasa de desempleo muestra correlaciones negativas con el ingreso disponible y el consumo
+
+\- Estas relaciones reflejan el impacto directo de las condiciones laborales en el bienestar económico
+
+<br/>
+
+```{r}
+# 2. Mercado Laboral y Consumo
+# Gráfico de Desempleo
+ggplot(merged_data, aes(x = date, y = Unemp_rate)) +
+  geom_line(color = "red") +
+  labs(title = "Evolución de la Tasa de Desempleo",
+       y = "Tasa de Desempleo (%)",
+       x = "Año") +
+  theme_minimal()
+
+# Gráfico de Ingreso Disponible
+ggplot(merged_data, aes(x = date, y = disposable_income)) +
+  geom_line(color = "blue") +
+  labs(title = "Evolución del Ingreso Disponible",
+       y = "Ingreso Disponible (USD)",
+       x = "Año") +
+  theme_minimal()
+```
+
+**3. Dinámica del Consumo**
+
+\- La fuerte correlación entre ingreso disponible y consumo personal confirma la teoría económica básica
+
+\- El ahorro personal muestra patrones más complejos, sugiriendo la influencia de factores adicionales
+
+<br/>
+
+```{r}
+# 3. Dinámica del Consumo
+# Gráfico de Consumo Personal
+ggplot(merged_data, aes(x = date, y = Personal_consumption_expenditure)) +
+  geom_line(color = "purple") +
+  labs(title = "Evolución del Consumo Personal",
+       y = "Consumo Personal (USD)",
+       x = "Año") +
+  theme_minimal()
+
+# Gráfico de Ahorro Personal
+ggplot(merged_data, aes(x = date, y = personal_savings)) +
+  geom_line(color = "orange") +
+  labs(title = "Evolución del Ahorro Personal",
+       y = "Tasa de Ahorro Personal (%)",
+       x = "Año") +
+  theme_minimal()
+```
+
+#### 
+
+**Potencial para Investigación Futura**
+
+Este análisis inicial abre múltiples vías para investigación adicional:
+
+**1. Análisis Temporal**
+
+\- Estudio de la evolución de estas correlaciones a lo largo del tiempo
+
+\- Identificación de cambios estructurales en las relaciones
+
+\- Análisis de la estabilidad de las correlaciones en diferentes ciclos económicos
+
+<br/> **2. Modelos Predictivos**
+
+\- Desarrollo de modelos econométricos basados en las relaciones identificadas
+
+\- Implementación de técnicas de machine learning para pronósticos
+
+\- Evaluación de la capacidad predictiva de diferentes combinaciones de variables
+
+<br/> **3. Análisis de Políticas**
+
+\- Evaluación del impacto de diferentes políticas monetarias
+
+\- Estudio de la efectividad de intervenciones económicas
+
+\- Análisis de la transmisión de shocks económicos
+
+<br/>
+
+La riqueza de los datos analizados y las relaciones identificadas proporcionan una base sólida para futuras investigaciones que podrían contribuir significativamente tanto al conocimiento académico como a la práctica de la política económica.
