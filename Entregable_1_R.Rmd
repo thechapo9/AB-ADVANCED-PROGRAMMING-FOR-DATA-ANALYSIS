@@ -412,7 +412,43 @@ ggplot(merged_data, aes(x = date, y = value)) +
        y = "M2 (Miles de millones USD)",
        x = "Año") +
   theme_minimal()
+```
 
+La oferta monetaria (M2) ha mostrado un crecimiento significativo a partir de 1980, con una aceleración notable después de 2008 y un crecimiento aún más pronunciado a partir de 2020.
+
+La crisis financiera de 2008 llevó a una política monetaria expansiva, con la Reserva Federal (Fed) implementando programas de flexibilización cuantitativa (QE).
+
+Durante la pandemia de COVID-19 en 2020, la Fed incrementó aún más la oferta monetaria para mitigar los efectos económicos de los confinamientos, lo que explica el pico reciente.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$value, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal M2")
+```
+
+**M2 Liquidity**
+
+-   **Tendencia**: Muestra un aumento constante en la liquidez M2 desde 1980. Este crecimiento se acelera especialmente después del 2020, probablemente debido a políticas monetarias expansivas.
+
+-   **Estacionalidad**: Exhibe un patrón cíclico claro, posiblemente relacionado con políticas monetarias regulares o factores económicos estacionales.
+
+-   **Residuos**: Picos significativos alrededor del 2020, coincidiendo con la pandemia, lo que sugiere anomalías económicas.
+
+<br/>
+
+```{r}
 # Gráfico de CPI
 ggplot(merged_data, aes(x = date, y = CPI)) +
   geom_line(color = "red") +
@@ -420,8 +456,43 @@ ggplot(merged_data, aes(x = date, y = CPI)) +
        y = "CPI",
        x = "Año") +
   theme_minimal()
+```
 
+El Índice de Precios al Consumidor (IPC) muestra un crecimiento constante con algunos picos ocasionales. A partir de 2020, se aprecia un incremento más acelerado.
 
+La inflación reciente puede estar vinculada a los estímulos fiscales y monetarios masivos post-pandemia, junto con interrupciones en la cadena de suministro global.
+
+Las tensiones geopolíticas (como la guerra en Ucrania) han afectado los precios de la energía y los alimentos, contribuyendo a la inflación.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$CPI, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal CPI")
+```
+
+**CPI (Índice de Precios al Consumidor)**
+
+-   **Tendencia**: La inflación muestra un aumento continuo desde 1980, con una aceleración más notable después del 2020.
+
+-   **Estacionalidad**: Oscilaciones regulares, posiblemente reflejando aumentos de precios en ciertos períodos del año.
+
+-   **Residuos**: Variabilidad significativa durante las crisis económicas de 2008 y 2020.
+
+<br/>
+
+```{r}
 # Gráfico del NASDAQ
 ggplot(merged_data, aes(x = date, y = NASDAQ)) +
   geom_line(color = "green") +
@@ -430,6 +501,42 @@ ggplot(merged_data, aes(x = date, y = NASDAQ)) +
        x = "Año") +
   theme_minimal()
 ```
+
+El índice NASDAQ ha mostrado un crecimiento espectacular desde 1980, con grandes burbujas en 2000 (burbuja tecnológica) y otra más reciente hasta 2021.
+
+La burbuja tecnológica de 2000 explotó debido a la sobrevaloración de empresas de tecnología.
+
+Más recientemente, el auge de las tecnológicas durante la pandemia impulsó el NASDAQ, aunque también sufrió correcciones significativas en 2022 debido al endurecimiento de las políticas monetarias.
+
+Esta es la relación, entre los mercados y la liquidez (M2 Liquidity), en políticas monetarias expansivas, la economía se sobre estimula de manera artificial provocando los conocidos "mercados alcistas", al igual que con las políticas restrictivas a traves de subidas de las tasas de interés, se enfria la economía de manera artificial.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$NASDAQ, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal NASDAQ")
+```
+
+**NASDAQ**
+
+-   **Tendencia**: Presenta un fuerte crecimiento, especialmente a partir de la década de 2010, con una marcada aceleración post-2020.
+
+-   **Estacionalidad**: Patrones estacionales menos evidentes, pero hay cierta repetición cíclica.
+
+-   **Residuos**: Grandes picos alrededor del 2000 (burbuja tecnológica) y 2020 (pandemia), reflejando eventos excepcionales en el mercado.
+
+<br/>
 
 **2. Mercado Laboral y Consumo**
 
@@ -449,6 +556,43 @@ ggplot(merged_data, aes(x = date, y = Unemp_rate)) +
        x = "Año") +
   theme_minimal()
 
+```
+
+Muestra picos claros durante recesiones, especialmente en 2008 y 2020.
+
+El desempleo se disparó durante la crisis financiera de 2008 y, más recientemente, debido a la pandemia de COVID-19.
+
+Las rápidas medidas de estímulo, relacionadas con el aumento de la M2 liquidity, permitieron una recuperación más rápida del empleo tras la pandemia en comparación con crisis previas.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$Unemp_rate, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal Unemp_rate")
+```
+
+**Unemployment Rate**
+
+-   **Tendencia**: Declive general en la tasa de desempleo, salvo repuntes claros durante las crisis (2008 y 2020).
+
+-   **Estacionalidad**: Variaciones cíclicas anuales, probablemente reflejando fluctuaciones estacionales del mercado laboral.
+
+-   **Residuos**: Grandes picos durante las crisis, reflejando un fuerte impacto externo.
+
+<br/>
+
+```{r}
 # Gráfico de Ingreso Disponible
 ggplot(merged_data, aes(x = date, y = disposable_income)) +
   geom_line(color = "blue") +
@@ -457,6 +601,42 @@ ggplot(merged_data, aes(x = date, y = disposable_income)) +
        x = "Año") +
   theme_minimal()
 ```
+
+Crecimiento constante, con picos notables alrededor de 2020.
+
+Los paquetes de estímulo directo a los hogares durante la pandemia explican los picos en ingreso disponible.
+
+La recuperación de ingresos en 2021 se debió a la reapertura de la economía y la recuperación del empleo.
+
+En esta gráfica podemos observar como grandes crisis como la burbuja de las punto com, la crisis financiera global de 2008, aparecen dejando picos, pero nada parecido a los de 2020. Esto nos indica que la inyección que se llevo acabo fue mucho mayor que en momentos anteriores.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$disposable_income, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal Ingresio disponible")
+```
+
+**Ingreso Disponible**
+
+-   **Tendencia**: Incremento sostenido, con una aceleración notable después del 2020.
+
+-   **Estacionalidad**: Ciclos regulares que reflejan patrones estacionales de ingresos.
+
+-   **Residuos**: Picos anómalos, especialmente durante los períodos de crisis económicas.
+
+<br/>
 
 **3. Dinámica del Consumo**
 
@@ -475,7 +655,41 @@ ggplot(merged_data, aes(x = date, y = Personal_consumption_expenditure)) +
        y = "Consumo Personal (USD)",
        x = "Año") +
   theme_minimal()
+```
 
+Crecimiento consistente con una caída breve durante la pandemia, seguida de una rápida recuperación.
+
+El consumo personal es altamente sensible al ingreso disponible. La caída durante la pandemia refleja la incertidumbre y las restricciones, mientras que los estímulos gubernamentales ayudaron a reactivar el consumo rápidamente.
+
+<br/>
+
+-   **Descomposición de serie temporal:**
+
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
+
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$Personal_consumption_expenditure, start = c(1980, 11), frequency = 12)
+
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
+
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal Consumo Personal")
+```
+
+**Consumo Personal**
+
+-   **Tendencia**: Crecimiento constante en el gasto de los consumidores.
+
+-   **Estacionalidad**: Claros patrones cíclicos, probablemente relacionados con temporadas de alta demanda (como fin de año).
+
+-   **Residuos**: Fluctuaciones alrededor del 2020, reflejando cambios en el consumo debido a la pandemia.
+
+<br/>
+
+```{r}
 # Gráfico de Ahorro Personal
 ggplot(merged_data, aes(x = date, y = personal_savings)) +
   geom_line(color = "orange") +
@@ -485,36 +699,240 @@ ggplot(merged_data, aes(x = date, y = personal_savings)) +
   theme_minimal()
 ```
 
-#### 
+Oscila históricamente en torno al 5-10%, con un pico inusual durante 2020 y un retorno rápido a niveles previos.
 
-**Potencial para Investigación Futura**
+Durante la pandemia, los hogares aumentaron sus tasas de ahorro debido a la incertidumbre y la reducción del gasto en bienes y servicios no esenciales. Posteriormente, al relajarse las restricciones, el ahorro cayó rápidamente con el repunte del consumo.
 
-Este análisis inicial abre múltiples vías para investigación adicional:
+Se puede observar como desde 1980 hasta 2005/6, la tendencia del ahorro estaba descendiendo de forma calmada, tras la crisis de 2008, el ahorro de los hogares comienza a recuperar cotas perdidas hace decadas, y no de forma tan artificial como en 2020, colocandose entre el 5% y el 10%. Esto puede ser debido a un miedo generalizado entre los hogares despues de vivir una crisis reciente, y el instinto de estar preparado por si vuelve a pasar.
 
-**1. Análisis Temporal**
+```{r}
+# Convertir las fechas al formato adecuado en merged_data
+merged_data$date <- as.Date(merged_data$date)
 
-\- Estudio de la evolución de estas correlaciones a lo largo del tiempo
+# Crear la serie temporal para CPI (u otra variable relevante)
+ts_data <- ts(merged_data$personal_savings, start = c(1980, 11), frequency = 12)
 
-\- Identificación de cambios estructurales en las relaciones
+# Descomposición STL
+decomposed <- stl(ts_data, s.window = "periodic")
 
-\- Análisis de la estabilidad de las correlaciones en diferentes ciclos económicos
+# Graficar la descomposición
+plot(decomposed, main = "Descomposición de la serie temporal Ahorro Personal")
+```
 
-<br/> **2. Modelos Predictivos**
+**Ahorro Personal**
 
-\- Desarrollo de modelos econométricos basados en las relaciones identificadas
+-   **Tendencia**: Generalmente estable, con un incremento abrupto alrededor de 2020, posiblemente debido a la reducción del gasto durante la pandemia.
 
-\- Implementación de técnicas de machine learning para pronósticos
+-   **Estacionalidad**: Muestra patrones cíclicos regulares.
 
-\- Evaluación de la capacidad predictiva de diferentes combinaciones de variables
-
-<br/> **3. Análisis de Políticas**
-
-\- Evaluación del impacto de diferentes políticas monetarias
-
-\- Estudio de la efectividad de intervenciones económicas
-
-\- Análisis de la transmisión de shocks económicos
+-   **Residuos**: Grandes picos durante eventos económicos extraordinarios, como 2020.
 
 <br/>
 
-La riqueza de los datos analizados y las relaciones identificadas proporcionan una base sólida para futuras investigaciones que podrían contribuir significativamente tanto al conocimiento académico como a la práctica de la política económica.
+#### **Comparación entre las variables**
+
+```{r}
+# Cargar las librerías necesarias
+library(ggplot2)
+
+#CPI vs. Mortgage_rate
+ggplot(merged_data, aes(x = CPI, y = Mortgage_rate)) +
+  geom_point(alpha = 0.6, color = "blue") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "CPI vs Mortgage_rate",
+       x = "CPI (Inflación)",
+       y = "Tasa de Hipoteca") +
+  theme_minimal()
+```
+
+-   **Observación**:
+
+1.  La relación es claramente **negativa**, como era de esperar. A medida que el CPI aumenta, la tasa de hipoteca tiende a disminuir.
+
+2.  Esto sugiere que en períodos de alta inflación, las tasas hipotecarias han bajado, posiblemente debido a políticas monetarias expansivas.
+
+3.  **Curvatura al final**: En los valores más altos de CPI (posteriores), la tasa hipotecaria parece comenzar a estabilizarse o incluso subir ligeramente. Esto podría indicar un cambio en la política monetaria reciente.
+
+<br/>
+
+```{r}
+# M2 vs. Mortgage_rate
+ggplot(merged_data, aes(x = value, y = Mortgage_rate)) +
+  geom_point(alpha = 0.6, color = "purple") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "M2 Liquidity vs Mortgage_rate",
+       x = "M2 Liquidity",
+       y = "Tasa de Hipoteca") +
+  theme_minimal()
+```
+
+-   **Observación**:
+
+1.  Existe una **relación negativa**: mayor liquidez en la economía (M2) está asociada con tasas hipotecarias más bajas.
+
+2.  Esto es consistente con períodos de política monetaria expansiva donde se inyecta más dinero para reducir las tasas.
+
+<br/>
+
+```{r}
+# M2 vs. CPI
+ggplot(merged_data, aes(x = value, y = CPI)) +
+  geom_point(alpha = 0.6, color = "brown") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "M2 Liquidity vs CPI",
+       x = "M2 Liquidity",
+       y = "CPI (Inflación)") +
+  theme_minimal()
+```
+
+-   **Observación**:
+
+1.  Relación **positiva fuerte**. A medida que la liquidez aumenta, el CPI también lo hace.
+
+2.  Esto refuerza la teoría de que una mayor cantidad de dinero en circulación puede generar inflación.
+
+<br/>
+
+**Regresiones Multivariadas**
+
+<br/>
+
+**¿Qué es?**: Es un modelo estadístico que permite analizar el impacto de **múltiples variables independientes (predictoras)** sobre una **variable dependiente**. A diferencia de la regresión simple, aquí puedes estudiar cómo **varias variables juntas** explican los cambios en la variable objetivo.
+
+**¿Por qué podría ser útil?**:
+
+-   Podrías analizar cómo **CPI**, **M2**, y **Mortgage_rate** afectan simultáneamente al **NASDAQ**.
+
+-   Nos permitiría ver qué variable tiene un impacto más fuerte sobre las tasas hipotecarias, controlando por las demás.
+
+-   También puede ayudarte a **aislar efectos**: por ejemplo, determinar si la relación entre **CPI y Mortgage_rate** sigue siendo significativa después de controlar por **M2 Liquidity**.
+
+```{r}
+# Modelo de regresión múltiple para NASDAQ
+modelo_nasdaq <- lm(NASDAQ ~ CPI + value + Mortgage_rate + Unemp_rate, data = merged_data)
+
+# Resumen del modelo
+summary(modelo_nasdaq)
+```
+
+-   **Intercept**:
+
+El valor base del **NASDAQ** es **3865.95** cuando todas las variables independientes son iguales a cero. Aunque este valor tiene un significado limitado en este contexto, es útil para la interpretación global.
+
+<br/>
+
+-   **CPI (Índice de Precios al Consumidor)**:
+
+**Coeficiente**: -32.94
+
+**Interpretación**: Por cada unidad adicional en el **CPI**, el **NASDAQ** tiende a reducirse en 32.94 puntos, manteniendo constantes las demás variables.
+
+**Significancia**: Es altamente significativo (**p \< 2e-16**), lo que sugiere que la inflación tiene un impacto importante y negativo en el desempeño del mercado.
+
+<br/>
+
+-   **Value (M2 Liquidity)**:
+
+**Coeficiente**: 0.93
+
+**Interpretación**: Por cada unidad de aumento en **value**, el **NASDAQ** aumenta en 0.93 puntos.
+
+**Significancia**: Altamente significativa (**p \< 2e-16**). Esto indica una relación positiva robusta entre esta variable y el mercado.
+
+<br/>
+
+-   **Mortgage_rate (Tasa de Hipoteca)**:
+
+**Coeficiente**: 7.41
+
+**Interpretación**: Un aumento en la tasa de hipoteca incrementa ligeramente el índice NASDAQ en 7.41 puntos.
+
+**Significancia**: No significativa (**p = 0.791**). La tasa de hipoteca no parece tener un impacto importante directo sobre NASDAQ en este modelo.
+
+<br/>
+
+-   **Unemp_rate (Tasa de Desempleo)**:
+
+**Coeficiente**: -281.45
+
+**Interpretación**: Por cada unidad adicional en la **tasa de desempleo**, el **NASDAQ** disminuye en 281.45 puntos.
+
+**Significancia**: Altamente significativa (**p \< 2e-16**). Esto sugiere que el desempleo es un factor clave y negativo para el mercado bursátil.
+
+<br/>
+
+-   **R² (R-cuadrado)**: 0.9448
+
+    El modelo explica el **94.48%** de la variabilidad en el índice NASDAQ, lo que indica un excelente ajuste.
+
+-   **F-Statistic** (Evalúa si al menos una de las variables independientes tiene un efecto significativo en la variable dependiente): 2115 (p \< 2.2e-16)
+
+    El modelo global es altamente significativo.
+
+-   **Errores residuales**:
+
+    Los residuos tienen un rango bastante amplio (-1885.8 a 3260.3), pero la **desviación estándar residual** de **741.2** es razonable dado el rango de valores del NASDAQ.
+
+<br/>
+
+**Conclusiones**:
+
+-   **CPI** y **Unemployment_rate** son las variables que más negativamente afectan al índice NASDAQ.
+
+-   **Value** tiene un efecto positivo significativo.
+
+-   **Mortgage_rate** no muestra un impacto relevante en este análisis.
+
+<br/>
+
+<br/>
+
+La intervención agresiva de la Fed y del gobierno de EE.UU. en momentos de crisis ha tenido efectos visibles en la economía, desde los mercados financieros como el NASDAQ hasta el ahorro del individuo, pasando por el consumo personal.
+
+Las gráficas destacan cómo el aumento de M2 ha tenido un impacto en la inflación, ya que como observamos el aumento de la m2 liquidity en la crisis de 2020 fue mucho mayor que en 2008, provocando un aumento exorbitado de la liquidez con el objetivo de evitar una crisis mayor, aceptando así un aumento de la inflación durante un breve periodo de tiempo.
+
+<br/>
+
+#### **Continuidad del Proyecto hacia Modelos Predictivos**
+
+<br/>
+
+Este análisis ha evidenciado la estrecha relación entre los indicadores macroeconómicos y el comportamiento del mercado financiero en Estados Unidos. En particular, la correlación entre la masa monetaria M2 y el índice de precios al consumidor (CPI) destaca cómo las políticas monetarias influyen en la inflación. A su vez, la relación entre el CPI y el índice NASDAQ refuerza la idea de que los cambios en el poder adquisitivo afectan significativamente las dinámicas del mercado bursátil.
+
+La observación de tendencias a través de series temporales también reveló cómo crisis económicas específicas, como la recesión de 2008, impactaron de manera sincrónica tanto en el mercado financiero como en indicadores económicos clave, subrayando la interconectividad de estas variables.
+
+Desde una perspectiva de política económica, estos hallazgos pueden guiar la toma de decisiones en la implementación de medidas monetarias, como ajustes en las tasas de interés, con el objetivo de estabilizar tanto la inflación como los mercados financieros.
+
+<br/>
+
+Para avanzar en este análisis, la siguiente fase se centrará en el desarrollo de modelos predictivos. El objetivo principal será predecir el índice NASDAQ utilizando variables macroeconómicas como el CPI, M2, y otras que puedan ser relevantes. Además, se explorará la predicción de otras variables críticas, como la inflación y las tasas de desempleo, dado su impacto en la economía general.
+
+**Objetivos de la Fase Predictiva**
+
+Predecir el comportamiento del índice NASDAQ: Comprender mejor cómo factores como la liquidez M2 y la inflación afectan a los mercados financieros. Explorar otras variables predictivas: Identificar variables macroeconómicas que sean útiles para anticipar tendencias económicas, como las tasas de desempleo o los ingresos disponibles.
+
+<br/>
+
+**Metodologías Propuestas Modelos Estadísticos:**
+
+-   **ARIMA**: Ideal para capturar patrones temporales en series univariadas como el CPI o el NASDAQ.
+
+-   **VAR**: Útil para explorar relaciones entre múltiples series temporales, como la interacción entre M2, CPI, y NASDAQ.
+
+<br/>
+
+**Modelos de Machine Learning:**
+
+-   **Regresión Lineal Múltiple**: Para evaluar la relación entre múltiples variables predictoras y un objetivo.
+
+-   **Redes Neuronales (RNN, LSTM)**: Diseñadas para capturar patrones no lineales y dependencias temporales complejas, mejorando la capacidad de predicción en datos secuenciales.
+
+<br/>
+
+**Selección de Variables**
+
+Como se ha visto anteriormente se ha hecho un estudio sobre todas las variables, y como estas afectan y de que manera, al índice búrsatil NASDAQ, esta selección de variables se realizará en base a estos resultados.
+
+**Plan de Validación**
+
+Para garantizar la robustez de los modelos, se utilizará un enfoque de validación cruzada. Los datos se dividirán en conjuntos de entrenamiento y prueba, y se evaluará la precisión de los modelos mediante métricas como **RMSE**, **MAE**, y **R²**.
