@@ -814,6 +814,40 @@ modelo_nasdaq <- lm(NASDAQ ~ CPI + value + Mortgage_rate + Unemp_rate, data = me
 # Resumen del modelo
 summary(modelo_nasdaq)
 ```
+```{r}
+merged_data$predicted_nasdaq <- predict(modelo_nasdaq, newdata = merged_data)
+
+```
+
+
+```{r}
+library(ggplot2)
+
+ggplot(merged_data, aes(x = NASDAQ, y = predicted_nasdaq)) +
+  geom_point(alpha = 0.6, color = "blue") +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
+  labs(title = "Valores Reales vs. Predichos (NASDAQ)",
+       x = "Valores Reales (NASDAQ)",
+       y = "Valores Predichos (NASDAQ)") +
+  theme_minimal()
+
+```
+
+
+```{r}
+merged_data$residuals <- residuals(modelo_nasdaq)
+
+ggplot(merged_data, aes(x = predicted_nasdaq, y = residuals)) +
+  geom_point(alpha = 0.6, color = "purple") +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Residuos vs Predicciones",
+       x = "Valores Predichos (NASDAQ)",
+       y = "Residuos") +
+  theme_minimal()
+
+```
+
+
 
 -   **Intercept**:
 
@@ -936,3 +970,8 @@ Como se ha visto anteriormente se ha hecho un estudio sobre todas las variables,
 **Plan de Validación**
 
 Para garantizar la robustez de los modelos, se utilizará un enfoque de validación cruzada. Los datos se dividirán en conjuntos de entrenamiento y prueba, y se evaluará la precisión de los modelos mediante métricas como **RMSE**, **MAE**, y **R²**.
+
+
+
+
+
