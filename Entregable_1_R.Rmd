@@ -819,32 +819,18 @@ merged_data$predicted_nasdaq <- predict(modelo_nasdaq, newdata = merged_data)
 
 ```
 
-
 ```{r}
-library(ggplot2)
-
+# Crear la gráfica
 ggplot(merged_data, aes(x = NASDAQ, y = predicted_nasdaq)) +
-  geom_point(alpha = 0.6, color = "blue") +
-  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +
-  labs(title = "Valores Reales vs. Predichos (NASDAQ)",
-       x = "Valores Reales (NASDAQ)",
-       y = "Valores Predichos (NASDAQ)") +
+  geom_point(alpha = 0.6, color = "blue") + # Puntos de valores reales vs predichos
+  geom_smooth(method = "lm", color = "green", se = FALSE) + # Línea de regresión ajustada
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") + # Línea ideal (y = x)
+  labs(
+    title = "Regresión Lineal Múltiple: Valores Reales vs. Predichos",
+    x = "Valores Reales del NASDAQ",
+    y = "Valores Predichos del NASDAQ"
+  ) +
   theme_minimal()
-
-```
-
-
-```{r}
-merged_data$residuals <- residuals(modelo_nasdaq)
-
-ggplot(merged_data, aes(x = predicted_nasdaq, y = residuals)) +
-  geom_point(alpha = 0.6, color = "purple") +
-  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
-  labs(title = "Residuos vs Predicciones",
-       x = "Valores Predichos (NASDAQ)",
-       y = "Residuos") +
-  theme_minimal()
-
 ```
 
 
@@ -970,7 +956,6 @@ Como se ha visto anteriormente se ha hecho un estudio sobre todas las variables,
 **Plan de Validación**
 
 Para garantizar la robustez de los modelos, se utilizará un enfoque de validación cruzada. Los datos se dividirán en conjuntos de entrenamiento y prueba, y se evaluará la precisión de los modelos mediante métricas como **RMSE**, **MAE**, y **R²**.
-
 
 
 
