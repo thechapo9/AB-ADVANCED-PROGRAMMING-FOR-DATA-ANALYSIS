@@ -333,14 +333,14 @@ str(merged_data)
 
 <br/>
 
-Tras haber realizado una exhaustiva recopilación y procesamiento de datos macroeconómicos estadounidenses, nos encontramos en una posición privilegiada para profundizar en el análisis de las relaciones entre las distintas variables estudiadas. La comprensión de estas interrelaciones es fundamental por varios motivos:
+Tras haber realizado una exhaustiva recopilación y procesamiento de datos macroeconómicos estadounidenses, podemos profundizar en el análisis de las relaciones entre las distintas variables estudiadas. La comprensión de estas interrelaciones es fundamental por varios motivos:
 
-1.  Permite identificar patrones y dependencias entre variables macroeconómicas clave
+1.  Permite identificar **patrones** y **dependencias** entre variables macroeconómicas clave
 2.  Facilita la comprensión de los mecanismos de transmisión de la política monetaria
 3.  Ayuda a prever posibles impactos de cambios en determinadas variables sobre otras
 4.  Proporciona una base sólida para la toma de decisiones en política económica
 
-En esta sección final, nos centraremos en el análisis de las correlaciones entre las variables estudiadas, utilizando técnicas estadísticas que nos permitirán cuantificar y visualizar estas relaciones. Este análisis no solo nos ayudará a entender mejor la estructura de la economía estadounidense, sino que también nos permitirá identificar áreas potenciales para investigación futura.
+En esta sección, nos centraremos en el análisis de las correlaciones entre las variables estudiadas, utilizando técnicas estadísticas que nos permitirán cuantificar y visualizar estas relaciones. Este análisis no solo nos ayudará a entender mejor la estructura de la economía estadounidense, sino que también nos permitirá identificar áreas potenciales para investigación futura.
 
 <br/>
 
@@ -348,13 +348,13 @@ En esta sección final, nos centraremos en el análisis de las correlaciones ent
 
 <br/>
 
-Para realizar este análisis, utilizaremos la matriz de correlación como herramienta principal. Esta matriz nos permite visualizar de manera clara y concisa las relaciones entre pares de variables, donde:
+Para realizar este análisis, utilizaremos la **matriz de correlación** como herramienta principal. Esta matriz nos permite visualizar de manera clara y concisa las relaciones entre pares de variables, donde:
 
 -   Los valores cercanos a 1 indican una fuerte correlación positiva
 -   Los valores cercanos a -1 indican una fuerte correlación negativa
 -   Los valores cercanos a 0 indican ausencia de correlación lineal
 
-Procedamos a visualizar estas relaciones:
+Este procedimiento no solo sirve para evidenciar la existencia de asociaciones estadísticamente relevantes, sino que también orientó la selección y futura comparación de aquellas variables que presentasen un vínculo potencialmente útil para explicar el comportamiento del NASDAQ.
 
 <br/>
 
@@ -392,11 +392,55 @@ La matriz de correlación revela patrones significativos en las relaciones entre
 
 <br/>
 
+Una vez conocidas las correlaciones básicas, se procederá a un análisis detallado y exhaustivo de cada serie temporal de manera individual. Este estudio comprende:
+
+<br/>
+
+-   La evaluación de tendencias a largo plazo y posibles patrones de estacionalidad.
+
+-   La identificación y discusión de acontecimientos históricos que pudiesen haber afectado significativamente a cada variable (p. ej., crisis económicas, cambios en la política monetaria de la Reserva Federal, contextos geopolíticos, entre otros).
+
+-   La determinación de los períodos de mayor volatilidad y las causas subyacentes, con el fin de comprender cómo estas fluctuaciones pudieron repercutir en la población y, por ende, en los mercados financieros.
+
+    <br/>
+
+Estudiar cada variable de manera individual posibilitó la comprensión integral del contexto macroeconómico y monetario y delineó cómo cada componente podría incidir en el movimiento del índice bursátil.
+
+<br/>
+
 **1. Relaciones con la Oferta Monetaria (M2)**
 
-\- Se observa una fuerte correlación positiva con el CPI, lo que respalda la teoría monetarista sobre la relación entre masa monetaria e inflación
+\- El índice de precios al consumidor (CPI) de Estados Unidos tiene una fuerte correlación con la oferta monetaria (M2 liquidity) debido a la relación fundamental entre la cantidad de dinero en circulación y los niveles de precios en una economía.
 
 \- La correlación con el NASDAQ sugiere una influencia significativa de la política monetaria en los mercados financieros
+
+Esta relación puede explicarse desde varias perspectivas económicas:
+
+<br/>
+
+**Teoría cuantitativa del dinero**
+
+𝑀𝑉=𝑃𝑄
+
+donde:
+
+-   M es la **oferta monetaria** (como M2)
+
+-   V es la **velocidad del dinero** (la frecuencia con la que una unidad de moneda es utilizada para comprar bienes y servicios)
+
+-   P es el **nivel de precios** (representado por el CPI)
+
+-   Q es el producto real o la **producción económica**.
+
+Si V y Q permanecen relativamente constantes, un aumento en M genera un aumento proporcional en P, es decir, en los precios. Esto implica que cuando se incrementa la cantidad de dinero en circulación (M2), eventualmente el nivel de precios tiende a subir, lo que se refleja en el CP
+
+<br/>
+
+**Efectos de la liquidez**
+
+-   Cuando la oferta monetaria aumenta, los consumidores y empresas tienen más liquidez. Esto puede llevar a un aumento en la demanda de bienes y servicios.
+
+-   Si la oferta de bienes y servicios no crece al mismo ritmo que la demanda, los precios tienden a subir, incrementando el CPI.
 
 <br/>
 
@@ -502,7 +546,7 @@ ggplot(merged_data, aes(x = date, y = NASDAQ)) +
   theme_minimal()
 ```
 
-El índice NASDAQ ha mostrado un crecimiento espectacular desde 1980, con grandes burbujas en 2000 (burbuja tecnológica) y otra más reciente hasta 2021.
+El índice NASDAQ ha mostrado un crecimiento espectacular desde 1980, con grandes burbujas en 2000 (burbuja tecnológica), 2008 y la más reciente en 2022.
 
 La burbuja tecnológica de 2000 explotó debido a la sobrevaloración de empresas de tecnología.
 
@@ -602,9 +646,7 @@ ggplot(merged_data, aes(x = date, y = disposable_income)) +
   theme_minimal()
 ```
 
-Crecimiento constante, con picos notables alrededor de 2020.
-
-Los paquetes de estímulo directo a los hogares durante la pandemia explican los picos en ingreso disponible.
+Crecimiento constante, con picos notables alrededor de 2020, explicado por los paquetes de estímulo directo a los hogares durante la pandemia explican los picos en ingreso disponible.
 
 La recuperación de ingresos en 2021 se debió a la reapertura de la economía y la recuperación del empleo.
 
@@ -731,6 +773,12 @@ plot(decomposed, main = "Descomposición de la serie temporal Ahorro Personal")
 
 #### **Comparación entre las variables**
 
+<br/>
+
+Con los resultados de la matriz de correlación y el análisis individual, se realizará una contrastación más profunda entre parejas de variables. Se seleccionaron aquellas con correlaciones de magnitud considerable y se abordó su explicación desde la perspectiva macroeconómica.
+
+<br/>
+
 ```{r}
 # Cargar las librerías necesarias
 library(ggplot2)
@@ -747,11 +795,9 @@ ggplot(merged_data, aes(x = CPI, y = Mortgage_rate)) +
 
 -   **Observación**:
 
-1.  La relación es claramente **negativa**, como era de esperar. A medida que el CPI aumenta, la tasa de hipoteca tiende a disminuir.
+1.  La relación es claramente **negativa**, como era de esperar. A medida que el CPI aumenta, la tasa de hipoteca tiende a disminuir. Esto sugiere que en períodos de alta inflación, las tasas hipotecarias han bajado, posiblemente debido a políticas monetarias expansivas.
 
-2.  Esto sugiere que en períodos de alta inflación, las tasas hipotecarias han bajado, posiblemente debido a políticas monetarias expansivas.
-
-3.  **Curvatura al final**: En los valores más altos de CPI (posteriores), la tasa hipotecaria parece comenzar a estabilizarse o incluso subir ligeramente. Esto podría indicar un cambio en la política monetaria reciente.
+2.  **Curvatura al final**: En los valores más altos de CPI (posteriores), la tasa hipotecaria parece comenzar a estabilizarse o incluso subir ligeramente. Esto podría indicar un cambio en la política monetaria reciente.
 
 <br/>
 
@@ -768,9 +814,7 @@ ggplot(merged_data, aes(x = value, y = Mortgage_rate)) +
 
 -   **Observación**:
 
-1.  Existe una **relación negativa**: mayor liquidez en la economía (M2) está asociada con tasas hipotecarias más bajas.
-
-2.  Esto es consistente con períodos de política monetaria expansiva donde se inyecta más dinero para reducir las tasas.
+    Existe una **relación negativa**: mayor liquidez en la economía (M2) está asociada con tasas hipotecarias más bajas. Esto es consistente con períodos de política monetaria expansiva donde se inyecta más dinero para reducir las tasas.
 
 <br/>
 
@@ -787,9 +831,7 @@ ggplot(merged_data, aes(x = value, y = CPI)) +
 
 -   **Observación**:
 
-1.  Relación **positiva fuerte**. A medida que la liquidez aumenta, el CPI también lo hace.
-
-2.  Esto refuerza la teoría de que una mayor cantidad de dinero en circulación puede generar inflación.
+    Relación **positiva fuerte**. A medida que la liquidez aumenta, el CPI también lo hace, es por esto que despues de politicas monetarias expansivas vivimos aumentos de precio (inflación)
 
 <br/>
 
@@ -801,9 +843,9 @@ ggplot(merged_data, aes(x = value, y = CPI)) +
 
 **¿Por qué podría ser útil?**:
 
--   Podrías analizar cómo **CPI**, **M2**, y **Mortgage_rate** afectan simultáneamente al **NASDAQ**.
+-   Podriamos analizar cómo **CPI**, **M2**, y **Mortgage_rate** afectan simultáneamente al **NASDAQ**.
 
--   Nos permitiría ver qué variable tiene un impacto más fuerte sobre las tasas hipotecarias, controlando por las demás.
+-   Nos permitiría ver qué variable tiene un impacto más fuerte sobre la variables dependiente, controlando por las demás.
 
 -   También puede ayudarte a **aislar efectos**: por ejemplo, determinar si la relación entre **CPI y Mortgage_rate** sigue siendo significativa después de controlar por **M2 Liquidity**.
 
@@ -814,26 +856,6 @@ modelo_nasdaq <- lm(NASDAQ ~ CPI + value + Mortgage_rate + Unemp_rate, data = me
 # Resumen del modelo
 summary(modelo_nasdaq)
 ```
-```{r}
-merged_data$predicted_nasdaq <- predict(modelo_nasdaq, newdata = merged_data)
-
-```
-
-```{r}
-# Crear la gráfica
-ggplot(merged_data, aes(x = NASDAQ, y = predicted_nasdaq)) +
-  geom_point(alpha = 0.6, color = "blue") + # Puntos de valores reales vs predichos
-  geom_smooth(method = "lm", color = "green", se = FALSE) + # Línea de regresión ajustada
-  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") + # Línea ideal (y = x)
-  labs(
-    title = "Regresión Lineal Múltiple: Valores Reales vs. Predichos",
-    x = "Valores Reales del NASDAQ",
-    y = "Valores Predichos del NASDAQ"
-  ) +
-  theme_minimal()
-```
-
-
 
 -   **Intercept**:
 
@@ -867,7 +889,7 @@ El valor base del **NASDAQ** es **3865.95** cuando todas las variables independi
 
 **Interpretación**: Un aumento en la tasa de hipoteca incrementa ligeramente el índice NASDAQ en 7.41 puntos.
 
-**Significancia**: No significativa (**p = 0.791**). La tasa de hipoteca no parece tener un impacto importante directo sobre NASDAQ en este modelo.
+**Significancia**: No significativa (**p = 0.791**). La tasa de hipoteca no parece tener un impacto importante directo sobre el NASDAQ en este modelo.
 
 <br/>
 
@@ -907,7 +929,7 @@ El valor base del **NASDAQ** es **3865.95** cuando todas las variables independi
 
 <br/>
 
-La intervención agresiva de la Fed y del gobierno de EE.UU. en momentos de crisis ha tenido efectos visibles en la economía, desde los mercados financieros como el NASDAQ hasta el ahorro del individuo, pasando por el consumo personal.
+La intervención agresiva de la Fed y del gobierno de EE.UU. en momentos de crisis ha tenido efectos visibles en la economía, desde los mercados financieros como el NASDAQ, hasta el ahorro del individuo, pasando por el consumo personal.
 
 Las gráficas destacan cómo el aumento de M2 ha tenido un impacto en la inflación, ya que como observamos el aumento de la m2 liquidity en la crisis de 2020 fue mucho mayor que en 2008, provocando un aumento exorbitado de la liquidez con el objetivo de evitar una crisis mayor, aceptando así un aumento de la inflación durante un breve periodo de tiempo.
 
@@ -919,17 +941,17 @@ Las gráficas destacan cómo el aumento de M2 ha tenido un impacto en la inflaci
 
 Este análisis ha evidenciado la estrecha relación entre los indicadores macroeconómicos y el comportamiento del mercado financiero en Estados Unidos. En particular, la correlación entre la masa monetaria M2 y el índice de precios al consumidor (CPI) destaca cómo las políticas monetarias influyen en la inflación. A su vez, la relación entre el CPI y el índice NASDAQ refuerza la idea de que los cambios en el poder adquisitivo afectan significativamente las dinámicas del mercado bursátil.
 
-La observación de tendencias a través de series temporales también reveló cómo crisis económicas específicas, como la recesión de 2008, impactaron de manera sincrónica tanto en el mercado financiero como en indicadores económicos clave, subrayando la interconectividad de estas variables.
-
-Desde una perspectiva de política económica, estos hallazgos pueden guiar la toma de decisiones en la implementación de medidas monetarias, como ajustes en las tasas de interés, con el objetivo de estabilizar tanto la inflación como los mercados financieros.
+La observación de tendencias a través de series temporales también reveló cómo crisis económicas específicas, como la recesión de 2008, impactaron de manera significativa tanto en el mercado financiero como en indicadores económicos clave, subrayando la relación entre estas variables.
 
 <br/>
 
-Para avanzar en este análisis, la siguiente fase se centrará en el desarrollo de modelos predictivos. El objetivo principal será predecir el índice NASDAQ utilizando variables macroeconómicas como el CPI, M2, y otras que puedan ser relevantes. Además, se explorará la predicción de otras variables críticas, como la inflación y las tasas de desempleo, dado su impacto en la economía general.
+Para avanzar en este análisis, la siguiente fase se centrará en el desarrollo de modelos predictivos. El objetivo principal será predecir el índice NASDAQ utilizando variables macroeconómicas como el CPI, M2, y otras que puedan ser relevantes.
 
 **Objetivos de la Fase Predictiva**
 
-Predecir el comportamiento del índice NASDAQ: Comprender mejor cómo factores como la liquidez M2 y la inflación afectan a los mercados financieros. Explorar otras variables predictivas: Identificar variables macroeconómicas que sean útiles para anticipar tendencias económicas, como las tasas de desempleo o los ingresos disponibles.
+Predecir el comportamiento del índice NASDAQ: Comprender mejor cómo factores como la liquidez M2 y la inflación afectan a los mercados financieros.
+
+Explorar otras variables predictivas: Identificar variables macroeconómicas que sean útiles para anticipar tendencias económicas, como las tasas de desempleo o los ingresos disponibles.
 
 <br/>
 
@@ -949,14 +971,148 @@ Predecir el comportamiento del índice NASDAQ: Comprender mejor cómo factores c
 
 <br/>
 
-**Selección de Variables**
+Finalmente, con la idea de materializar el objetivo último del estudio —la predicción del NASDAQ— se evaluaron diversas metodologías, valorando tanto las fortalezas como las limitaciones en función de la cantidad, el tipo de datos disponibles, la estructura temporal de las variables, etc.
 
-Como se ha visto anteriormente se ha hecho un estudio sobre todas las variables, y como estas afectan y de que manera, al índice búrsatil NASDAQ, esta selección de variables se realizará en base a estos resultados.
+Tras revisar diversas alternativas, el modelo **ARIMAX** (Autoregressive Integrated Moving Average with Exogenous Variables) fue elegido como la estrategia más adecuada para esta investigación, tanto por la periodicidad de los datos en los dataset, como el tamaño de los mismos. Este modelo combina la capacidad de capturar componentes autorregresivos y de medias móviles, al tiempo que permite incorporar variables exógenas que, como se ha demostrado en el análisis preliminar, ejercen una influencia notable en el índice bursátil.
 
-**Plan de Validación**
+Para tener en cuenta en el modelo estas variables exógenas hemos tenido que crear una matriz con los valores de estas desde el punto donde se realiza la prediccion (Mayo 2022) hasta el final, unos seis meses despues. Estos datos han sido recogidos de la pagina Datosmacro.com.
 
-Para garantizar la robustez de los modelos, se utilizará un enfoque de validación cruzada. Los datos se dividirán en conjuntos de entrenamiento y prueba, y se evaluará la precisión de los modelos mediante métricas como **RMSE**, **MAE**, y **R²**.
+<br/>
 
+```{r}
+library(forecast)
 
+# 1. Crear la serie temporal principal
+nasdaq_ts <- ts(merged_data$NASDAQ, 
+               start = c(1980, 11), 
+               frequency = 12)
 
+# 2. Crear la matriz de variables exógenas
+exog_vars <- cbind(
+ CPI          = merged_data$CPI,
+ Unemp_rate   = merged_data$Unemp_rate,
+ Mortgage_rate= merged_data$Mortgage_rate
+)
 
+# 3. Ajustar el modelo ARIMAX
+model_arimax <- auto.arima(
+ nasdaq_ts, 
+ xreg = exog_vars,
+ stepwise = FALSE, 
+ approximation = FALSE
+)
+
+# 4. Resumen del modelo
+summary(model_arimax)
+
+# 5. Crear matriz de valores futuros para variables exógenas (6 meses desde mayo 2022)
+future_xreg <- matrix(
+c(
+  # CPI futuros (junio 2022 a mayo 2023)
+  c(296.311, 297.789, 296.171, 296.808, 298.012, 299.607),
+  # Unemployment rate futuros (junio 2022 a mayo 2023)
+  c(3.6, 3.5, 3.6, 3.5, 3.6, 3.6),
+  # Mortgage rate futuros (junio 2022 a mayo 2023)
+  c(5.5, 5.4, 5.2, 6.0, 6.9, 6.8)
+),
+
+ ncol = 3,
+ dimnames = list(NULL, colnames(exog_vars))
+)
+
+# 6. Predicción a futuro
+forecasts_arimax <- forecast(model_arimax, xreg = future_xreg, h = 6)
+
+# 7. Visualización mejorada
+plot(forecasts_arimax, 
+    xlim = c(2020, 2023),
+    main = "Predicción ARIMAX NASDAQ",
+    ylab = "Índice NASDAQ",
+    xlab = "Año",
+    col = "blue",
+    fcol = "red",
+    shadecols = c("#CCCCCC"))
+
+# Añadir leyenda
+legend("topleft", 
+      legend = c("Histórico", "Predicción", "Intervalo de confianza"),
+      col = c("blue", "red", "grey"),
+      lty = c(1, 1, 1),
+      cex = 0.8)
+```
+
+<br/>
+
+-   El **MAPE** mide el error promedio relativo entre los valores observados y predichos, expresado como un porcentaje.
+
+    Un MAPE de 4.02% significa que, en promedio, las predicciones del modelo se desvían un 4.02% de los valores reales, lo cual es considerado un error bajo y aceptable en análisis de series temporales.
+
+-   El **ME** representa el error promedio, sin importar su signo, y mide si el modelo tiene un sesgo en sus predicciones.
+
+    El ME cercano a cero (2.52) sugiere que el modelo no tiene un sesgo significativo en las predicciones, es decir, no sobreestima ni subestima sistemáticamente los valores del índice.
+
+-   El **RMSE** mide la magnitud promedio del error en términos absolutos, penalizando más los errores grandes.
+
+    Aunque el valor es alto (198.89), esto se debe a la naturaleza volátil del índice NASDAQ y a los valores elevados que maneja (superiores a 10,000 puntos).
+
+-   **ACF1**. La autocorrelación residual mide si los errores del modelo están correlacionados entre sí, lo cual puede indicar un problema en el ajuste.
+
+    Un ACF1 cercano a cero indica que el modelo ha capturado correctamente las relaciones temporales de la serie, y los residuos no tienen dependencias significativas.
+
+-   El **CPI** mide la variación en los precios de bienes y servicios, un indicador clave de la inflación. El coeficiente positivo (23.45) indica que un aumento en el CPI está relacionado con un incremento en el índice NASDAQ, posiblemente debido a mayores expectativas de beneficios corporativos en un contexto inflacionario.
+
+-   El coeficiente negativo (-39.10) sugiere que un aumento en las **tasas hipotecarias** reduce el índice NASDAQ, posiblemente debido al impacto negativo de tasas altas en el consumo y la inversión. Sin embargo, su alto error estándar (39.89) indica que su influencia puede variar considerablemente.
+
+-   **Sigma².** La varianza residual mide la dispersión de los errores del modelo.
+
+    Un valor elevado (40287) refleja que los errores son significativos en términos absolutos, lo que podría deberse a factores no capturados por el modelo, como eventos económicos no previstos.
+
+<br/>
+
+\
+![](images/8888.png)
+
+<br/>
+
+Como podemos observar, el NASDAQ continuo con su caida, un 17,18% más, pero la aceleración con la que bajaba fue disminuyendo hasta aplanarse casi por completo, al igual que nos muestra nuestro modelo.
+
+<br/>
+
+```{r}
+# Análisis de residuos
+checkresiduals(model_arimax)
+```
+
+<br/>
+
+-   **Gráfico de residuos:**
+
+    -   Representa los errores del modelo a lo largo del tiempo.
+
+    -   **¿Qué indica?** Los residuos parecen estar centrados alrededor de cero, lo que es deseable, pero hay algunos picos grandes sobre todo en los ultimos años que podrían reflejar eventos inusuales o puntos extremos no capturados por el modelo. En general, el comportamiento es aceptable para un modelo de series temporales.
+
+-   **ACF de residuos :**
+
+    -   **¿Qué es?** Muestra la autocorrelación de los residuos a distintos retrasos (lags).
+
+    -   **¿Qué indica?** Aunque la mayoría de las barras están dentro del intervalo de confianza (líneas azules), hay algunos valores significativos en ciertos retrasos. Esto sugiere que no toda la dependencia temporal ha sido completamente eliminada, lo que podría indicar margen de mejora en el modelo.
+
+-   **Histograma de residuos :**
+
+    -   **¿Qué es?** Muestra la distribución de los errores del modelo.
+
+    -   **¿Qué indica?** La distribución tiene una forma aproximadamente simétrica y centrada en cero, pero con una alta concentración, lo que indica la presencia de algunos errores extremos. Esto podría reflejar limitaciones en el modelo para capturar movimientos bruscos del mercado.
+
+-   **Prueba Ljung-Box :**
+
+    -   **¿Qué es?** Evalúa si hay autocorrelación significativa en los residuos hasta un número específico de retrasos.
+
+    -   **¿Qué indica?** El p-value es muy bajo (**0.0002823**), lo que lleva a rechazar la hipótesis nula de que no hay autocorrelación en los residuos. Esto significa que el modelo no ha capturado completamente toda la estructura de dependencia temporal en los datos, lo que podría afectar la calidad de las predicciones.
+
+-   **Grados de libertad :**
+
+    -   **¿Qué es?** Indica el número de retrasos considerados en la prueba Ljung-Box.
+
+    -   **¿Qué indica?** Con 19 grados de libertad, la prueba evalúa una cantidad razonable de dependencia en el tiempo. Sin embargo, los residuos muestran que aún queda autocorrelación no explicada.
+
+El modelo ARIMAX muestra un desempeño aceptable para capturar las tendencias generales del índice NASDAQ, con errores moderados y residuos centrados en cero. Sin embargo, la presencia de autocorrelación en los residuos, confirmada por la prueba Ljung-Box, indica que no toda la dependencia temporal ha sido eliminada, lo que limita su capacidad para prever movimientos extremos del mercado. A pesar de ser útil para análisis generales, el modelo podría beneficiarse de ajustes adicionales en su estructura o la incorporación de más variables explicativas para mejorar su precisión y robustez.
