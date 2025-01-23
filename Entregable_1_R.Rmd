@@ -472,7 +472,7 @@ Durante la pandemia de COVID-19 en 2020, la Fed incrementó aún más la oferta 
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para M2
 ts_data <- ts(merged_data$value, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -516,7 +516,7 @@ Las tensiones geopolíticas (como la guerra en Ucrania) han afectado los precios
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para CPI
 ts_data <- ts(merged_data$CPI, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -562,7 +562,7 @@ Esta es la relación, entre los mercados y la liquidez (M2 Liquidity), en polít
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para NASDAQ
 ts_data <- ts(merged_data$NASDAQ, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -616,7 +616,7 @@ Las rápidas medidas de estímulo, relacionadas con el aumento de la M2 liquidit
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para Tasa de Desempleo
 ts_data <- ts(merged_data$Unemp_rate, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -660,7 +660,7 @@ En esta gráfica podemos observar como grandes crisis como la burbuja de las pun
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para Ingreso Disponible
 ts_data <- ts(merged_data$disposable_income, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -711,7 +711,7 @@ El consumo personal es altamente sensible al ingreso disponible. La caída duran
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para Consumo Personal
 ts_data <- ts(merged_data$Personal_consumption_expenditure, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -751,7 +751,7 @@ Se puede observar como desde 1980 hasta 2005/6, la tendencia del ahorro estaba d
 # Convertir las fechas al formato adecuado en merged_data
 merged_data$date <- as.Date(merged_data$date)
 
-# Crear la serie temporal para CPI (u otra variable relevante)
+# Crear la serie temporal para Ahorro Personal
 ts_data <- ts(merged_data$personal_savings, start = c(1980, 11), frequency = 12)
 
 # Descomposición STL
@@ -783,7 +783,7 @@ Con los resultados de la matriz de correlación y el análisis individual, se re
 # Cargar las librerías necesarias
 library(ggplot2)
 
-#CPI vs. Mortgage_rate
+# Gráfico de dispersion CPI vs. Mortgage_rate y linea de regresión
 ggplot(merged_data, aes(x = CPI, y = Mortgage_rate)) +
   geom_point(alpha = 0.6, color = "blue") +
   geom_smooth(method = "lm", color = "red", se = FALSE) +
@@ -802,7 +802,7 @@ ggplot(merged_data, aes(x = CPI, y = Mortgage_rate)) +
 <br/>
 
 ```{r}
-# M2 vs. Mortgage_rate
+# Gráfico de dispersion M2 vs. Mortgage_rate y linea de regresión
 ggplot(merged_data, aes(x = value, y = Mortgage_rate)) +
   geom_point(alpha = 0.6, color = "purple") +
   geom_smooth(method = "lm", color = "red", se = FALSE) +
@@ -819,7 +819,7 @@ ggplot(merged_data, aes(x = value, y = Mortgage_rate)) +
 <br/>
 
 ```{r}
-# M2 vs. CPI
+# Gráfico de dispersion M2 vs. CPI y linea de regresión
 ggplot(merged_data, aes(x = value, y = CPI)) +
   geom_point(alpha = 0.6, color = "brown") +
   geom_smooth(method = "lm", color = "red", se = FALSE) +
@@ -1063,7 +1063,7 @@ legend("topleft",
 
 -   El coeficiente negativo (-39.10) sugiere que un aumento en las **tasas hipotecarias** reduce el índice NASDAQ, posiblemente debido al impacto negativo de tasas altas en el consumo y la inversión. Sin embargo, su alto error estándar (39.89) indica que su influencia puede variar considerablemente.
 
--   **Sigma².** La varianza residual mide la dispersión de los errores del modelo.
+-   **Sigma².** La varianza residual mide la dispersión de los errores del modelo (refleja que tan dispersos estan los valores predichos de los reales observados).
 
     Un valor elevado (40287) refleja que los errores son significativos en términos absolutos, lo que podría deberse a factores no capturados por el modelo, como eventos económicos no previstos.
 
@@ -1103,9 +1103,9 @@ checkresiduals(model_arimax)
 
     -   **¿Qué indica?** La distribución tiene una forma aproximadamente simétrica y centrada en cero, pero con una alta concentración, lo que indica la presencia de algunos errores extremos. Esto podría reflejar limitaciones en el modelo para capturar movimientos bruscos del mercado.
 
--   **Prueba Ljung-Box :**
+-   **Prueba Ljung-Box** (herramienta estadistica de analisis de residuos comunmente utilizada importante para evaluar la calidad del modelo de regresión)
 
-    -   **¿Qué es?** Evalúa si hay autocorrelación significativa en los residuos hasta un número específico de retrasos.
+    -   **¿Qué es?** Evalúa si hay autocorrelación significativa en los residuos hasta un número específico de retrasos (permiten evaluar si los residuos estan correlacionados con sus propios valores pasados). La autocorrelación en los residuos indica que el modelo no ha capturado completamente la estructura de dependencia temporal presente en los datos.
 
     -   **¿Qué indica?** El p-value es muy bajo (**0.0002823**), lo que lleva a rechazar la hipótesis nula de que no hay autocorrelación en los residuos. Esto significa que el modelo no ha capturado completamente toda la estructura de dependencia temporal en los datos, lo que podría afectar la calidad de las predicciones.
 
@@ -1115,4 +1115,6 @@ checkresiduals(model_arimax)
 
     -   **¿Qué indica?** Con 19 grados de libertad, la prueba evalúa una cantidad razonable de dependencia en el tiempo. Sin embargo, los residuos muestran que aún queda autocorrelación no explicada.
 
-El modelo ARIMAX muestra un desempeño aceptable para capturar las tendencias generales del índice NASDAQ, con errores moderados y residuos centrados en cero. Sin embargo, la presencia de autocorrelación en los residuos, confirmada por la prueba Ljung-Box, indica que no toda la dependencia temporal ha sido eliminada, lo que limita su capacidad para prever movimientos extremos del mercado. A pesar de ser útil para análisis generales, el modelo podría beneficiarse de ajustes adicionales en su estructura o la incorporación de más variables explicativas para mejorar su precisión y robustez.
+El modelo ARIMAX muestra un desempeño aceptable para capturar las tendencias generales del índice NASDAQ, con errores moderados y residuos centrados en cero.
+
+Sin embargo, la presencia de autocorrelación en los residuos, confirmada por la prueba Ljung-Box, indica que no toda la dependencia temporal ha sido eliminada, lo que limita su capacidad para prever movimientos extremos del mercado. A pesar de ser útil para análisis generales, el modelo podría beneficiarse de ajustes adicionales en su estructura o la incorporación de más variables explicativas para mejorar su precisión y robustez.
